@@ -1,0 +1,20 @@
+{
+  "name": "Password Strength Checker & Generator",
+  "short_name": "Password Tool",
+  "description": "A comprehensive tool for checking password strength and generating secure passwords",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#667eea",
+  "theme_color": "#667eea",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔒</text></svg>",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "categories": ["security", "utilities", "productivity"],
+  "lang": "en",
+  "dir": "ltr"
+}

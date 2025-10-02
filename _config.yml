@@ -1,0 +1,42 @@
+# GitHub Pages Configuration
+# This file ensures proper deployment settings for GitHub Pages
+
+# Build settings
+source: .
+destination: _site
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+# Exclude files from processing
+exclude:
+  - README.md
+  - .gitignore
+  - .git/
+  - venv/
+
+# Include files that start with underscores
+include:
+  - _*
+
+# Markdown settings
+markdown: kramdown
+highlighter: rouge
+
+# Site settings
+title: "Password Strength Checker & Generator"
+description: "A comprehensive tool for checking password strength and generating secure passwords"
+url: "https://yourusername.github.io"
+baseurl: "/password_strength"
+
+# SEO settings
+lang: en
+author: "Your Name"
+twitter:
+  username: yourusername
+social:
+  name: "Your Name"
+  links:
+    - https://github.com/yourusername

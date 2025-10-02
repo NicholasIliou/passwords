@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Strength Checker & Generator</title>
+    <meta name="description" content="Check password strength and generate secure passwords with breach detection and real-time analysis">
+    <meta name="keywords" content="password, security, generator, strength, checker, breach, cybersecurity">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔒</text></svg>">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-shield-alt"></i> Password Security Tool</h1>
+            <p>Check your password strength and generate secure passwords</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="switchTab('checker')">
+                <i class="fas fa-search"></i> Password Checker
+            </button>
+            <button class="tab-button" onclick="switchTab('generator')">
+                <i class="fas fa-key"></i> Password Generator
+            </button>
+        </div>
+
+        <!-- Password Checker Tab -->
+        <div id="checker" class="tab-content active">
+            <div class="card">
+                <h2>Check Password Strength</h2>
+                <div class="password-input-container">
+                    <input type="password" id="passwordInput" placeholder="Enter your password to check its strength">
+                    <button type="button" class="toggle-visibility" onclick="togglePasswordVisibility('passwordInput')">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+                
+                <div class="strength-meter">
+                    <div class="strength-bar">
+                        <div id="strengthBar" class="strength-fill"></div>
+                    </div>
+                    <div id="strengthText" class="strength-text">Enter a password to check its strength</div>
+                </div>
+
+                <div id="strengthDetails" class="strength-details">
+                    <div class="criteria-grid">
+                        <div class="criteria-item" id="lengthCriteria">
+                            <i class="fas fa-times"></i>
+                            <span>At least 8 characters</span>
+                        </div>
+                        <div class="criteria-item" id="uppercaseCriteria">
+                            <i class="fas fa-times"></i>
+                            <span>Uppercase letter</span>
+                        </div>
+                        <div class="criteria-item" id="lowercaseCriteria">
+                            <i class="fas fa-times"></i>
+                            <span>Lowercase letter</span>
+                        </div>
+                        <div class="criteria-item" id="numberCriteria">
+                            <i class="fas fa-times"></i>
+                            <span>Number</span>
+                        </div>
+                        <div class="criteria-item" id="specialCriteria">
+                            <i class="fas fa-times"></i>
+                            <span>Special character</span>
+                        </div>
+                        <div class="criteria-item" id="commonCriteria">
+                            <i class="fas fa-times"></i>
+                            <span>Not a common password</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="breach-check">
+                    <button id="breachCheckBtn" onclick="checkPasswordBreach()" disabled>
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Check if Password was Breached
+                    </button>
+                    <div id="breachResult" class="breach-result"></div>
+                </div>
+
+                <div id="suggestions" class="suggestions"></div>
+            </div>
+        </div>
+
+        <!-- Password Generator Tab -->
+        <div id="generator" class="tab-content">
+            <div class="card">
+                <h2>Generate Secure Password</h2>
+                
+                <div class="generator-options">
+                    <div class="option-group">
+                        <label for="passwordLength">Password Length: <span id="lengthValue">16</span></label>
+                        <input type="range" id="passwordLength" min="8" max="128" value="16" oninput="updateLengthValue()">
+                    </div>
+
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="includeUppercase" checked>
+                            <span class="checkmark"></span>
+                            Include Uppercase Letters (A-Z)
+                        </label>
+                        
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="includeLowercase" checked>
+                            <span class="checkmark"></span>
+                            Include Lowercase Letters (a-z)
+                        </label>
+                        
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="includeNumbers" checked>
+                            <span class="checkmark"></span>
+                            Include Numbers (0-9)
+                        </label>
+                        
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="includeSpecial" checked>
+                            <span class="checkmark"></span>
+                            Include Special Characters (!@#$%^&*)
+                        </label>
+                        
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="excludeSimilar">
+                            <span class="checkmark"></span>
+                            Exclude Similar Characters (0, O, l, 1, I)
+                        </label>
+                    </div>
+                </div>
+
+                <button id="generateBtn" onclick="generatePassword()">
+                    <i class="fas fa-refresh"></i> Generate Password
+                </button>
+
+                <div class="generated-password-container">
+                    <div class="password-output">
+                        <input type="text" id="generatedPassword" readonly placeholder="Generated password will appear here">
+                        <button type="button" class="copy-btn" onclick="copyPassword()" title="Copy to clipboard">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                        <button type="button" class="toggle-visibility" onclick="togglePasswordVisibility('generatedPassword')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    
+                    <div id="generatedStrength" class="generated-strength"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
